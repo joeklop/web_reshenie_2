@@ -13,7 +13,7 @@ const MainLayout = ({ children }: IMainLayoutProps) => {
     <ThemeProvider theme={theme}>
       <AppContextProvider>
         <Header />
-        <main className="container">{children}</main>
+        <main>{children}</main>
       </AppContextProvider>
     </ThemeProvider>
   );

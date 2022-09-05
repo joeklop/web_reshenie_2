@@ -1,3 +1,5 @@
+import { StatusType } from "types/types";
+
 export interface ITableItemModel {
   0: number;
   1: number;
@@ -27,10 +29,34 @@ export interface ITableItemModel {
 }
 
 export interface ITableModel {
-  status: "ready" | "waiting";
+  status: StatusType;
   delivery_cost: number;
   adjustment_cost: number;
   manual_delivery_cost: number;
   months: [4, 5, 6, 7, 8, 9];
   result: ITableItemModel[];
+}
+
+export type IUnionTableItemKey = keyof ITableItemModel;
+
+export type MonthType =
+  | "month1"
+  | "month2"
+  | "month3"
+  | "month4"
+  | "month5"
+  | "month6";
+
+export type UnionTypeItemKey =
+  | keyof ITableItemModel
+  | keyof Pick<
+      ITableModel,
+      "delivery_cost" | "adjustment_cost" | "manual_delivery_cost"
+    >
+  | MonthType;
+
+export interface IHeaderTable {
+  id: number;
+  title: string;
+  keyName: UnionTypeItemKey;
 }

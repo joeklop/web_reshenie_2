@@ -11,8 +11,10 @@ import { ButtonUI } from "UI/ButtonUI";
 import SaveIcon from "assets/icon/SaveIcon/SaveIcon";
 import { useHeader } from "components/Header/useHeader";
 import HeaderError from "components/Header/HeaderError/HeaderError";
+import { useAppContext } from "../../context/AppContextProvider";
 
 const Header = () => {
+  const { fileCode } = useAppContext();
   const { methods, handleSendFile, handleSaveFile } = useHeader();
 
   return (
@@ -28,8 +30,14 @@ const Header = () => {
               <HeaderAttributesFile />
               <HeaderYandexFile />
               <div className={styles.buttonContainer}>
-                <ButtonUI onClick={handleSendFile}>Отправить</ButtonUI>
-                <ButtonUI startIcon={<SaveIcon />} onClick={handleSaveFile}>
+                <ButtonUI onClick={handleSendFile} type="button">
+                  Отправить
+                </ButtonUI>
+                <ButtonUI
+                  type="button"
+                  startIcon={<SaveIcon />}
+                  onClick={handleSaveFile}
+                  disabled={!fileCode}>
                   Сохранить
                 </ButtonUI>
               </div>

@@ -1,15 +1,15 @@
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { IHeaderRequest, MarketPlaceType } from "types/types";
+import { IPostFileRequest, MarketPlaceType } from "types/types";
 import { useEffect } from "react";
 import { useFetchData } from "../../hooks/useFetchData";
 
 export const useHeader = () => {
-  const { fetchPostDataFile } = useFetchData();
+  const { fetchPostDataFile, fetchDownloadFile } = useFetchData();
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const marketplace = searchParams.get("marketplace") as MarketPlaceType;
-  const methods = useForm<IHeaderRequest>({
+  const methods = useForm<IPostFileRequest>({
     defaultValues: {
       marketplace: marketplace || "yandex",
       our_stock: "",
@@ -21,7 +21,7 @@ export const useHeader = () => {
   });
   const { handleSubmit, setValue, clearErrors } = methods;
 
-  const onSendFile = (data: IHeaderRequest) => {
+  const onSendFile = (data: IPostFileRequest) => {
     fetchPostDataFile(data);
   };
 
@@ -29,8 +29,8 @@ export const useHeader = () => {
     handleSubmit(onSendFile)();
   };
 
-  const onSaveFile = (data: IHeaderRequest) => {
-    console.log(data);
+  const onSaveFile = (data: IPostFileRequest) => {
+    fetchDownloadFile(data);
   };
 
   const handleSaveFile = () => {

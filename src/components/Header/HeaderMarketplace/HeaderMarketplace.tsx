@@ -3,12 +3,12 @@ import { NavigationButtonUI } from "UI/NavigationButtonUI";
 import { styled } from "@mui/material";
 import { useFormContext, Controller } from "react-hook-form";
 import { MAIN_COLOR } from "lib/constants/constants";
-import { IHeaderRequest, MarketPlaceType } from "types/types";
+import { IPostFileRequest, MarketPlaceType } from "types/types";
 import { useNavigate } from "react-router-dom";
 
 const HeaderMarketplace = () => {
   const navigate = useNavigate();
-  const { control } = useFormContext<IHeaderRequest>();
+  const { control } = useFormContext<IPostFileRequest>();
   const handleChangeMarketPlace = (
     onChange: (state: MarketPlaceType) => void,
     marketPlace: MarketPlaceType,
