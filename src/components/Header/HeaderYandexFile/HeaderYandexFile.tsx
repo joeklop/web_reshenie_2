@@ -1,10 +1,10 @@
 import React from "react";
 import DownloadButtonUI from "UI/DownloadButtonUI/DownloadButtonUI";
 import { useWatch } from "react-hook-form";
-import { IHeaderRequest } from "types/types";
+import { IPostFileRequest } from "types/types";
 
 const HeaderYandexFile = () => {
-  const marketplace = useWatch<Pick<IHeaderRequest, "marketplace">>({
+  const marketplace = useWatch<Pick<IPostFileRequest, "marketplace">>({
     name: "marketplace",
   });
   const isYandex = marketplace == "yandex" ? `Выберите файл "Яндекс"` : false;

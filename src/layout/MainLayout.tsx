@@ -1,5 +1,5 @@
 import React from "react";
-import { ThemeProvider } from "@mui/material";
+import { Dialog, ThemeProvider } from "@mui/material";
 import { theme } from "../theme/theme";
 import Header from "components/Header/Header";
 import AppContextProvider from "../context/AppContextProvider";
@@ -13,7 +13,7 @@ const MainLayout = ({ children }: IMainLayoutProps) => {
     <ThemeProvider theme={theme}>
       <AppContextProvider>
         <Header />
-        <main className="container">{children}</main>
+        <main>{children}</main>
       </AppContextProvider>
     </ThemeProvider>
   );

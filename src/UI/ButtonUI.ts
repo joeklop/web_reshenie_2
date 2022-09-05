@@ -16,4 +16,8 @@ export const ButtonUI = styled(Button)`
   &:hover {
     background-color: rgba(43, 113, 217, 0.7);
   }
+  &:disabled {
+    color: white;
+    cursor: not-allowed;
+  }
 `;

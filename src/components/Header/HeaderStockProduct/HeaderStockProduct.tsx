@@ -1,12 +1,12 @@
 import React from "react";
 import { Controller, useFormContext } from "react-hook-form";
-import { IHeaderRequest } from "types/types";
+import { IPostFileRequest } from "types/types";
 import TextChildrenUI from "UI/TextChildrenUI/TextChildrenUI";
 import { styled } from "@mui/material";
 import { InputUI } from "UI/InputUI";
 
 const HeaderStockProduct = () => {
-  const { control } = useFormContext<IHeaderRequest>();
+  const { control } = useFormContext<IPostFileRequest>();
   return (
     <Controller
       name="stock_days"

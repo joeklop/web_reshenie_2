@@ -1,7 +1,7 @@
 import React from "react";
 import TextFieldUI from "UI/TextFieldUI/TextFieldUI";
 import { useWatch } from "react-hook-form";
-import { IHeaderRequest } from "types/types";
+import { IPostFileRequest } from "types/types";
 
 const dataYandex = [
   { value: "", label: "Склад отгрузки" },
@@ -16,7 +16,7 @@ const dataOzon = [
 ];
 
 const HeaderStock = () => {
-  const marketplace = useWatch<Pick<IHeaderRequest, "marketplace">>({
+  const marketplace = useWatch<Pick<IPostFileRequest, "marketplace">>({
     name: "marketplace",
   });
   const marketplaceData = marketplace === "yandex" ? dataYandex : dataOzon;

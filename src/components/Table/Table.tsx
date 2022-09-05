@@ -1,19 +1,15 @@
-import React, { useMemo } from "react";
-import TableHeader from "components/Table/TableHeader/TableHeader";
-import { useAppContext } from "../../context/AppContextProvider";
+import React from "react";
+import TableContent from "components/Table/TableContent/TableContent";
 import SpinnerUI from "UI/SpinnerUI/SpinnerUI";
+import MoreButton from "components/MoreButton/MoreButton";
 
 const Table = () => {
-  const { tableData } = useAppContext();
-  const isData = useMemo(() => !!tableData.result.length, [tableData]);
   return (
-    <>
-      <table>
-        <TableHeader />
-        {/*{isData && tableData.result.map((tableItem) => <TableRow />)}*/}
-      </table>
+    <section>
+      <TableContent />
       <SpinnerUI />
-    </>
+      <MoreButton />
+    </section>
   );
 };
 

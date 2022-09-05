@@ -1,9 +1,10 @@
-import React, { ChangeEvent, useRef } from "react";
+import React, { ChangeEvent, useRef, MouseEvent } from "react";
 import TextChildrenUI from "UI/TextChildrenUI/TextChildrenUI";
 import DownloadIcon from "assets/icon/DownloadIcon/DownloadIcon";
 import { Button, styled } from "@mui/material";
 import { MAIN_COLOR } from "lib/constants/constants";
 import { Controller, ControllerProps, useFormContext } from "react-hook-form";
+import RemoveIcon from "assets/icon/RemoveIcon/RemoveIcon";
 
 interface IDownloadButtonUIProps {
   title: string;
@@ -38,6 +39,13 @@ const DownloadButtonUI = ({
     };
   };
 
+  const handleRemoveFile = (onChange: (state: undefined) => void) => {
+    return (e: MouseEvent<HTMLButtonElement>) => {
+      e.stopPropagation();
+      onChange(undefined);
+    };
+  };
+
   return (
     <Controller
       {...contolerProps}
@@ -45,6 +53,11 @@ const DownloadButtonUI = ({
       render={({ field: { value, onChange } }) => (
         <ButtonSC onClick={handleClick} disabled={isDisabled}>
           <TextChildrenUI title={value?.name || title}>
+            {value?.name && (
+              <RemoveButtonSC onClick={handleRemoveFile(onChange)}>
+                <RemoveIcon />
+              </RemoveButtonSC>
+            )}
             <IconContainerSC>
               <DownloadIcon />
             </IconContainerSC>
@@ -71,6 +84,12 @@ const ButtonSC = styled(Button)`
   height: 100%;
   color: ${MAIN_COLOR};
   padding: 11.5px 10px;
+`;
+
+const RemoveButtonSC = styled("button")`
+  margin-right: 10px;
+  padding: 10px 10px;
+  background-color: transparent;
 `;
 
 const IconContainerSC = styled("div")`
