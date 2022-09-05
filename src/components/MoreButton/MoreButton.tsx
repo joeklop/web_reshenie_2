@@ -17,7 +17,7 @@ const MoreButton = () => {
 
   return tableData?.result.length ? (
     <ButtonMoreSC onClick={handleMoreData} disabled={isEnd}>
-      {isEnd ? "Конец" : "Загрузкить еще"}
+      {isEnd ? "Конец" : "Загрузить еще"}
     </ButtonMoreSC>
   ) : null;
 };

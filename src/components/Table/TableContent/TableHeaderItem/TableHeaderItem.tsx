@@ -6,13 +6,19 @@ import { HeaderItemCSS } from "lib/cssPattern/cssPattern";
 
 interface ITableHeaderItemProps extends IHeaderTable {
   isSort: boolean;
+  sortName: string;
 }
 
-const TableHeaderItem = ({ title, keyName, isSort }: ITableHeaderItemProps) => {
+const TableHeaderItem = ({
+  title,
+  keyName,
+  isSort,
+  sortName,
+}: ITableHeaderItemProps) => {
   return (
     <HeaderItemContainerSC>
       {isSort ? (
-        <TableHeaderMenu title={title} keyName={keyName} />
+        <TableHeaderMenu title={title} keyName={keyName} sortName={sortName} />
       ) : (
         <HeaderItemSC>{title}</HeaderItemSC>
       )}

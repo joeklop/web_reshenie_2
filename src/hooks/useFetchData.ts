@@ -1,5 +1,4 @@
 import {
-  IDownloadRequest,
   IGetTableRequest,
   IGetTableResponse,
   IPostFileRequest,
@@ -10,6 +9,7 @@ import { useAppContext } from "../context/AppContextProvider";
 
 export const useFetchData = () => {
   const {
+    sort,
     fileCode,
     handleChangeEnd,
     handleChangeSort,
@@ -26,12 +26,25 @@ export const useFetchData = () => {
     handleChangeError(message);
   };
 
+  const handleInitialState = async () => {
+    await handleChangeLoading(true);
+    await handleChangeTableData(null);
+    await handleChangeEnd(false);
+    await handleChangeSort("");
+    await handleChangeError("");
+    await handleChangePage(1);
+  };
+
   const fetchGetDataTable = async (
     data: IGetTableRequest,
     isReset: boolean,
   ) => {
     try {
-      handleChangeLoading(true);
+      await handleChangeLoading(true);
+      if (isReset) {
+        await handleChangeTableData(null);
+        await handleChangeEnd(false);
+      }
       const queryStr = new URLSearchParams({
         code: data.code,
         page: `${data.page}`,
@@ -49,31 +62,31 @@ export const useFetchData = () => {
             }, 30000);
           }
           if (response.data.result.status == "ready") {
-            handleChangePage(data.page);
-            handleChangeFileCode(data.code);
-            handleChangeLoading(false);
+            await handleChangePage(data.page);
+            await handleChangeFileCode(data.code);
+            await handleChangeLoading(false);
             if (isReset) {
-              handleChangeTableData(response.data.result);
+              await handleChangeTableData(response.data.result);
             } else {
-              handleUpdateTableData(response.data.result.result);
+              await handleUpdateTableData(response.data.result.result);
               if (response.data.result.result.length === 0) {
-                handleChangeEnd(true);
+                await handleChangeEnd(true);
               }
             }
             if (data.order_by) {
-              handleChangeSort(data.order_by);
+              await handleChangeSort(data.order_by);
             }
           }
       }
     } catch (e) {
-      setError("непредвиденная ошибка");
-      throw new Error("error get data tabel");
+      setError("Ошибка получения информации");
     }
   };
 
   const fetchPostDataFile = async (data: IPostFileRequest) => {
     try {
-      handleChangeLoading(true);
+      await handleInitialState();
+      await handleChangeLoading(true);
       const formData = new FormData();
       formData.append("marketplace", data.marketplace);
       formData.append("stock_days", data.stock_days);
@@ -97,9 +110,6 @@ export const useFetchData = () => {
         case 200:
           fetchGetDataTable({ code: response.data.code, page: 1 }, true);
           break;
-        case 400:
-          setError("Ошибка запроса");
-          break;
       }
     } catch (e) {
       setError("Ошибка отправки файла");
@@ -107,21 +117,29 @@ export const useFetchData = () => {
   };
 
   const fetchDownloadFile = async (data: IPostFileRequest) => {
-    const submitData = {
-      code: fileCode,
-      marketplace: data.marketplace,
-      our_stock: data.our_stock,
-      stock_days: data.stock_days,
-    } as IDownloadRequest;
-    const response = await projectAxios.post("/api/download/", submitData, {
-      responseType: "blob",
-    });
-    const url = window.URL.createObjectURL(new Blob([response.data]));
-    const link = document.createElement("a");
-    link.href = url;
-    link.setAttribute("download", "file.pdf"); //or any other extension
-    document.body.appendChild(link);
-    link.click();
+    try {
+      const response = await projectAxios.get(
+        `/api/download/?${new URLSearchParams({
+          code: fileCode,
+          marketplace: data.marketplace,
+          our_stock: data.our_stock,
+          stock_days: data.stock_days,
+          order_by: sort || "",
+        })}`,
+        {
+          responseType: "blob",
+        },
+      );
+      const url = window.URL.createObjectURL(new Blob([response.data]));
+      const link = document.createElement("a");
+      link.href = url;
+      link.setAttribute("download", "file.pdf"); //or any other extension
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    } catch (e) {
+      setError("Ошибка скачивания файла");
+    }
   };
 
   return { fetchPostDataFile, fetchGetDataTable, fetchDownloadFile };

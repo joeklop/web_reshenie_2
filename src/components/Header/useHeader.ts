@@ -1,6 +1,10 @@
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { IPostFileRequest, MarketPlaceType } from "types/types";
+import {
+  IDownloadRequest,
+  IPostFileRequest,
+  MarketPlaceType,
+} from "types/types";
 import { useEffect } from "react";
 import { useFetchData } from "../../hooks/useFetchData";
 

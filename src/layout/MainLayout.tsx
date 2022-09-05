@@ -1,5 +1,5 @@
 import React from "react";
-import { ThemeProvider } from "@mui/material";
+import { Dialog, ThemeProvider } from "@mui/material";
 import { theme } from "../theme/theme";
 import Header from "components/Header/Header";
 import AppContextProvider from "../context/AppContextProvider";

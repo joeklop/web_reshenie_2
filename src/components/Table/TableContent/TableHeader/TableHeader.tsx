@@ -3,16 +3,22 @@ import { headerTable } from "lib/mock/headerTable";
 import { styled } from "@mui/material";
 import TableHeaderItem from "components/Table/TableContent/TableHeaderItem/TableHeaderItem";
 import { useAppContext } from "../../../../context/AppContextProvider";
+import { UnionTypeItemKey } from "lib/models/ITableModel";
 
 const TableHeader = () => {
-  const { fileCode } = useAppContext();
+  const { fileCode, sort } = useAppContext();
+  const sortElementKey = sort[0] === "-" ? sort.replace("-", "") : sort;
+  const getSortName = (keyName: UnionTypeItemKey) =>
+    sortElementKey === keyName ? sort : "";
+
   return (
     <HeaderContainerSC>
       {headerTable.map((headerItem) => (
         <TableHeaderItem
           key={headerItem.id}
-          {...headerItem}
           isSort={!fileCode}
+          {...headerItem}
+          sortName={getSortName(headerItem.keyName)}
         />
       ))}
     </HeaderContainerSC>
