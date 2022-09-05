@@ -1,14 +1,24 @@
 @import url("./fonts.css");
 
-
 body {
-    height: 100vh;
+    height: calc(100vh - 15px);
     font-size: 16px;
     line-height: 18px;
     font-weight: 400;
     color: #AAAAAA;
     background-color: #FAFAFA;
     font-family: 'Ubuntu', sans-serif;
+    overflow: hidden;
+}
+
+#root {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex-grow: 1;
 }
 
 .container {

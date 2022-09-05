@@ -2,7 +2,7 @@ import { css } from "@mui/material";
 
 export const HeaderItemCSS = css`
   color: #aaaaaa;
-  min-width: 100px;
+  min-width: 150px;
   min-height: 64px;
   font-size: 14px;
   line-height: 16px;

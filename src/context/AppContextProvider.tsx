@@ -67,7 +67,10 @@ const AppContextProvider = ({ children }: IAppContextProviderProps) => {
   const [page, setPage] = useState<number>(1);
   const [sort, setSort] = useState<string>("");
   const [fileCode, setFileCode] = useState<string>("");
-  const [tableData, setTableData] = useState<TableDataType>(null);
+  const [tableData, setTableData] = useState<TableDataType>({
+    ...mock,
+    result: [...mock.result, ...mock.result],
+  });
   const [isEnd, setIsEnd] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<IsLoadingType>(false);
   const [hasError, setHasError] = useState<HasErrorType>(null);

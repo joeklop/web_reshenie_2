@@ -12,7 +12,7 @@ const TableHeader = () => {
     sortElementKey === keyName ? sort : "";
 
   return (
-    <HeaderContainerSC>
+    <HeaderContainerSC id="tableHeader">
       {headerTable.map((headerItem) => (
         <TableHeaderItem
           key={headerItem.id}

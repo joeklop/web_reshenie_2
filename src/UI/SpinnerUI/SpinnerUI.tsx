@@ -12,9 +12,12 @@ const SpinnerUI = () => {
 };
 
 const ContainerSC = styled("div")`
-  margin: 40px auto;
+  padding: 20px 0;
   width: 100%;
-  max-width: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #fafafa;
 `;
 
 export default React.memo(SpinnerUI);
