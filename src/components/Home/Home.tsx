@@ -25,6 +25,8 @@ const DialogSC = styled(Dialog)`
 
 const ErrorSC = styled("h1")`
   color: red;
+  text-align: center;
+  line-height: 42px;
 `;
 
 export default React.memo(Home);

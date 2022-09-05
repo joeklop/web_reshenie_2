@@ -1,16 +1,17 @@
 import React from "react";
 import TableContent from "components/Table/TableContent/TableContent";
-import SpinnerUI from "UI/SpinnerUI/SpinnerUI";
-import MoreButton from "components/MoreButton/MoreButton";
+import { styled } from "@mui/material";
 
 const Table = () => {
   return (
-    <section>
+    <SectionContainerSC>
       <TableContent />
-      <SpinnerUI />
-      <MoreButton />
-    </section>
+    </SectionContainerSC>
   );
 };
+
+const SectionContainerSC = styled("section")`
+  height: 100%;
+`;
 
 export default React.memo(Table);

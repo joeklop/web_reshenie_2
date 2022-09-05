@@ -14,8 +14,8 @@ const TableRowSubItem = ({ title }: ITableRowSubItemProps) => {
 };
 
 const ItemSC = styled("div")`
-  max-width: 114px;
-  min-width: 114px;
+  max-width: 164px;
+  min-width: 164px;
   width: 100%;
   height: 100%;
   overflow: hidden;
@@ -23,7 +23,7 @@ const ItemSC = styled("div")`
   border-bottom: 1.5px solid #e8e8e8;
   display: flex;
   justify-content: left;
-  word-break: break-all;
+  word-break: break-word;
   padding: 8px 4px;
   position: relative;
 `;
