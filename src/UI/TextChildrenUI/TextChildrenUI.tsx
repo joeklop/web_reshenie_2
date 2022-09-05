@@ -24,7 +24,7 @@ const TextSC = styled("p")`
   font-size: 16px;
   line-height: 18px;
   color: #aaaaaa;
-  margin-right: 13px;
+  margin-right: 10px;
   max-width: 160px;
   overflow: hidden;
   text-overflow: ellipsis;
