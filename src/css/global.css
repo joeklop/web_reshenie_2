@@ -1,0 +1,45 @@
+@import url("./fonts.css");
+
+
+body {
+    height: 100vh;
+    font-size: 16px;
+    line-height: 18px;
+    font-weight: 400;
+    color: #AAAAAA;
+    background-color: #FAFAFA;
+    font-family: 'Ubuntu', sans-serif;
+}
+
+#root {
+    overflow-y: hidden;
+}
+
+.container {
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 20px;
+    max-width: 1960px;
+}
+
+*, *::after, *::before {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+ul, li {
+    list-style: none;
+}
+
+button {
+    border: 0;
+    cursor: pointer;
+    font-family: inherit !important;
+
+}
+
+button[disabled] {
+    cursor: not-allowed;
+    opacity: 0.4;
+}
