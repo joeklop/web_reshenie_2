@@ -1,6 +1,5 @@
 import React, { createContext, ReactNode, useContext, useState } from "react";
 import { ITableItemModel, ITableModel } from "lib/models/ITableModel";
-import { mock } from "lib/mock/mock";
 
 type TableDataType = ITableModel | null;
 type IsLoadingType = boolean;
@@ -29,7 +28,7 @@ const AppContext = createContext<IAppContext>({
   sort: "",
   fileCode: "",
   isEnd: false,
-  tableData: mock,
+  tableData: null,
   isLoading: false,
   hasError: null,
   handleChangeSort: () => {
@@ -67,10 +66,7 @@ const AppContextProvider = ({ children }: IAppContextProviderProps) => {
   const [page, setPage] = useState<number>(1);
   const [sort, setSort] = useState<string>("");
   const [fileCode, setFileCode] = useState<string>("");
-  const [tableData, setTableData] = useState<TableDataType>({
-    ...mock,
-    result: [...mock.result, ...mock.result],
-  });
+  const [tableData, setTableData] = useState<TableDataType>(null);
   const [isEnd, setIsEnd] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<IsLoadingType>(false);
   const [hasError, setHasError] = useState<HasErrorType>(null);

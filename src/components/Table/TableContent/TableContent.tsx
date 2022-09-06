@@ -12,7 +12,7 @@ const TableContent = () => {
     const headerElement = document.querySelector("header");
     const headerHeight = headerElement?.offsetHeight;
     if (headerHeight) {
-      setHeight(headerHeight + 15);
+      setHeight(headerHeight + 6);
     }
   };
 
@@ -36,7 +36,7 @@ const TableContent = () => {
 };
 
 const SectionContainerSC = styled("div")<{ headerHeight: number }>`
-  margin-top: 15px;
+  margin-top: 5px;
   display: flex;
   flex-direction: column;
   overflow: scroll;

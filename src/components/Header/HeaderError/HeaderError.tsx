@@ -12,31 +12,33 @@ const HeaderError = () => {
     return errorArr;
   }, [formState]);
   return (
-    <>
+    <ErrorContainerSC>
       {!!hasErrorArr.length && (
-        <ErrorContainerSC>
+        <>
           {hasErrorArr.map((errorItem, index) => (
             <ErrorItemSC key={errorItem + index}>
               {errorItem}
               {index !== hasErrorArr.length - 1 ? "," : ""}
             </ErrorItemSC>
           ))}
-        </ErrorContainerSC>
+        </>
       )}
-    </>
+    </ErrorContainerSC>
   );
 };
 
 const ErrorContainerSC = styled("ul")`
-  padding: 10px 0 10px;
+  padding: 5px 0 0;
   display: flex;
-  flex-wrap: wrap;
   & > *:last-child {
     margin-right: 0;
   }
+  min-height: 25px;
+  overflow: hidden;
 `;
 const ErrorItemSC = styled("li")`
   margin-right: 10px;
+  white-space: nowrap;
   color: red;
 `;
 

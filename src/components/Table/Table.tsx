@@ -12,6 +12,7 @@ const Table = () => {
 
 const SectionContainerSC = styled("section")`
   height: 100%;
+  position: relative;
 `;
 
 export default React.memo(Table);

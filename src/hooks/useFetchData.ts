@@ -27,7 +27,7 @@ export const useFetchData = () => {
   };
 
   const handleInitialState = async () => {
-    await handleChangeLoading(true);
+    await handleChangeLoading(false);
     await handleChangeTableData(null);
     await handleChangeEnd(false);
     await handleChangeSort("");
@@ -51,7 +51,7 @@ export const useFetchData = () => {
         order_by: data?.order_by || "",
       });
       const response = await projectAxios.get<IGetTableResponse>(
-        `/api/upload/?${queryStr}`,
+        `/api/upload?${queryStr}`,
       );
 
       switch (response.status) {
@@ -102,7 +102,7 @@ export const useFetchData = () => {
       }
 
       const response = await projectAxios.post<IResponsePostFileSucces>(
-        "/api/upload/",
+        "/api/upload",
         formData,
       );
 
@@ -119,7 +119,7 @@ export const useFetchData = () => {
   const fetchDownloadFile = async (data: IPostFileRequest) => {
     try {
       const response = await projectAxios.get(
-        `/api/download/?${new URLSearchParams({
+        `/api/download?${new URLSearchParams({
           code: fileCode,
           marketplace: data.marketplace,
           our_stock: data.our_stock,
@@ -130,10 +130,11 @@ export const useFetchData = () => {
           responseType: "blob",
         },
       );
+      console.log(response.headers);
       const url = window.URL.createObjectURL(new Blob([response.data]));
       const link = document.createElement("a");
       link.href = url;
-      link.setAttribute("download", "file.pdf"); //or any other extension
+      link.setAttribute("download", "file.xlsx"); //or any other extension
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
@@ -142,5 +143,10 @@ export const useFetchData = () => {
     }
   };
 
-  return { fetchPostDataFile, fetchGetDataTable, fetchDownloadFile };
+  return {
+    fetchPostDataFile,
+    handleInitialState,
+    fetchGetDataTable,
+    fetchDownloadFile,
+  };
 };

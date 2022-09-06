@@ -42,9 +42,9 @@ const Header = () => {
                 </ButtonUI>
               </div>
             </nav>
-            <div className={styles.innerContainer}>
-              <HeaderError />
-            </div>
+          </div>
+          <div className={styles.innerContainer}>
+            <HeaderError />
           </div>
         </FormProvider>
       </form>

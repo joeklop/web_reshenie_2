@@ -1,11 +1,12 @@
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { useForm } from "react-hook-form";
+import { useForm, useWatch } from "react-hook-form";
 import { IPostFileRequest, MarketPlaceType } from "types/types";
 import { useEffect } from "react";
 import { useFetchData } from "../../hooks/useFetchData";
 
 export const useHeader = () => {
-  const { fetchPostDataFile, fetchDownloadFile } = useFetchData();
+  const { fetchPostDataFile, fetchDownloadFile, handleInitialState } =
+    useFetchData();
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const marketplace = searchParams.get("marketplace") as MarketPlaceType;
@@ -19,7 +20,8 @@ export const useHeader = () => {
       products_table: null,
     },
   });
-  const { handleSubmit, setValue, clearErrors } = methods;
+  const { handleSubmit, control, setValue, clearErrors } = methods;
+  const formValue = useWatch({ control });
 
   const onSendFile = (data: IPostFileRequest) => {
     fetchPostDataFile(data);
@@ -47,6 +49,10 @@ export const useHeader = () => {
     }
     clearErrors();
   }, [marketplace]);
+
+  useEffect(() => {
+    handleInitialState();
+  }, [formValue]);
 
   return {
     methods,

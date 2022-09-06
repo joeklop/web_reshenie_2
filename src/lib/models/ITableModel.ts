@@ -1,12 +1,12 @@
 import { StatusType } from "types/types";
 
 export interface ITableItemModel {
-  0: number;
-  1: number;
-  2: number;
-  3: number;
-  4: number;
-  5: number;
+  month0: number;
+  month1: number;
+  month2: number;
+  month3: number;
+  month4: number;
+  month5: number;
   vendor_code: string;
   delivery_type: string;
   product_type: string;
