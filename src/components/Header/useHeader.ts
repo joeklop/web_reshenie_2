@@ -5,8 +5,12 @@ import { useEffect } from "react";
 import { useFetchData } from "../../hooks/useFetchData";
 
 export const useHeader = () => {
-  const { fetchPostDataFile, fetchDownloadFile, handleInitialState } =
-    useFetchData();
+  const {
+    fetchPostDataFile,
+    fetchDownloadFile,
+    fetchGetDataTable,
+    handleInitialState,
+  } = useFetchData();
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const marketplace = searchParams.get("marketplace") as MarketPlaceType;
@@ -56,6 +60,7 @@ export const useHeader = () => {
 
   return {
     methods,
+    fetchGetDataTable,
     handleSendFile,
     handleSaveFile,
   };

@@ -14,8 +14,14 @@ import HeaderError from "components/Header/HeaderError/HeaderError";
 import { useAppContext } from "../../context/AppContextProvider";
 
 const Header = () => {
-  const { fileCode, isLoading } = useAppContext();
-  const { methods, handleSendFile, handleSaveFile } = useHeader();
+  const { fileCode, isLoading, sort, handleChangeSort } = useAppContext();
+  const { methods, handleSendFile, handleSaveFile, fetchGetDataTable } =
+    useHeader();
+
+  const handleClearSort = () => {
+    handleChangeSort("");
+    fetchGetDataTable({ page: 1, order_by: "", code: fileCode }, true);
+  };
 
   return (
     <header>
@@ -43,6 +49,14 @@ const Header = () => {
                   disabled={!fileCode}>
                   Сохранить
                 </ButtonUI>
+                {sort && (
+                  <ButtonUI
+                    type="button"
+                    sx={{ marginLeft: "10px" }}
+                    onClick={handleClearSort}>
+                    Очистить сортировку
+                  </ButtonUI>
+                )}
               </div>
             </nav>
           </div>
