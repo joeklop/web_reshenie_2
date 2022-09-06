@@ -14,7 +14,7 @@ import HeaderError from "components/Header/HeaderError/HeaderError";
 import { useAppContext } from "../../context/AppContextProvider";
 
 const Header = () => {
-  const { fileCode } = useAppContext();
+  const { fileCode, isLoading } = useAppContext();
   const { methods, handleSendFile, handleSaveFile } = useHeader();
 
   return (
@@ -30,7 +30,10 @@ const Header = () => {
               <HeaderAttributesFile />
               <HeaderYandexFile />
               <div className={styles.buttonContainer}>
-                <ButtonUI onClick={handleSendFile} type="button">
+                <ButtonUI
+                  onClick={handleSendFile}
+                  type="button"
+                  disabled={isLoading}>
                   Отправить
                 </ButtonUI>
                 <ButtonUI
