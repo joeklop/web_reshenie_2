@@ -25,7 +25,7 @@ const HeaderStock = () => {
     <TextFieldUI
       contollerProps={{
         name: "our_stock",
-        rules: { required: "Вберите склад" },
+        rules: { required: "Выберите склад" },
       }}
       data={marketplaceData}
     />

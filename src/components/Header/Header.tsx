@@ -14,8 +14,14 @@ import HeaderError from "components/Header/HeaderError/HeaderError";
 import { useAppContext } from "../../context/AppContextProvider";
 
 const Header = () => {
-  const { fileCode } = useAppContext();
-  const { methods, handleSendFile, handleSaveFile } = useHeader();
+  const { fileCode, isLoading, sort, handleChangeSort } = useAppContext();
+  const { methods, handleSendFile, handleSaveFile, fetchGetDataTable } =
+    useHeader();
+
+  const handleClearSort = () => {
+    handleChangeSort("");
+    fetchGetDataTable({ page: 1, order_by: "", code: fileCode }, true);
+  };
 
   return (
     <header>
@@ -30,7 +36,10 @@ const Header = () => {
               <HeaderAttributesFile />
               <HeaderYandexFile />
               <div className={styles.buttonContainer}>
-                <ButtonUI onClick={handleSendFile} type="button">
+                <ButtonUI
+                  onClick={handleSendFile}
+                  type="button"
+                  disabled={isLoading}>
                   Отправить
                 </ButtonUI>
                 <ButtonUI
@@ -40,11 +49,19 @@ const Header = () => {
                   disabled={!fileCode}>
                   Сохранить
                 </ButtonUI>
+                {sort && (
+                  <ButtonUI
+                    type="button"
+                    sx={{ marginLeft: "10px" }}
+                    onClick={handleClearSort}>
+                    Очистить сортировку
+                  </ButtonUI>
+                )}
               </div>
             </nav>
-            <div className={styles.innerContainer}>
-              <HeaderError />
-            </div>
+          </div>
+          <div className={styles.innerContainer}>
+            <HeaderError />
           </div>
         </FormProvider>
       </form>

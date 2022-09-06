@@ -16,6 +16,7 @@ const TableRowSubItem = ({ title }: ITableRowSubItemProps) => {
 const ItemSC = styled("div")`
   max-width: 164px;
   min-width: 164px;
+  min-height: 35px;
   width: 100%;
   height: 100%;
   overflow: hidden;

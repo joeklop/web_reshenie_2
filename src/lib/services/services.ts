@@ -1,28 +1,28 @@
 export const getMonthIndex = (mountIndex: number): string => {
   switch (mountIndex) {
-    case 1:
+    case 0:
       return "Январь";
-    case 2:
+    case 1:
       return "Февраль";
-    case 3:
+    case 2:
       return "Март";
-    case 4:
+    case 3:
       return "Апрель";
-    case 5:
+    case 4:
       return "Май";
-    case 6:
+    case 5:
       return "Июнь";
-    case 7:
+    case 6:
       return "Июль";
-    case 8:
+    case 7:
       return "Август";
+    case 8:
+      return "Сентябрь";
     case 9:
-      return "Сеньтябрь";
-    case 10:
       return "Октябрь";
-    case 11:
+    case 10:
       return "Ноябрь";
-    case 12:
+    case 11:
       return "Декабрь";
     default:
       return "";

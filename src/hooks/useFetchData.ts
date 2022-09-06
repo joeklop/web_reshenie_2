@@ -3,9 +3,11 @@ import {
   IGetTableResponse,
   IPostFileRequest,
   IResponsePostFileSucces,
+  MarketPlaceType,
 } from "types/types";
 import { projectAxios } from "lib/http/http";
 import { useAppContext } from "../context/AppContextProvider";
+import axios from "axios";
 
 export const useFetchData = () => {
   const {
@@ -27,7 +29,8 @@ export const useFetchData = () => {
   };
 
   const handleInitialState = async () => {
-    await handleChangeLoading(true);
+    await handleChangeFileCode("");
+    await handleChangeLoading(false);
     await handleChangeTableData(null);
     await handleChangeEnd(false);
     await handleChangeSort("");
@@ -38,6 +41,7 @@ export const useFetchData = () => {
   const fetchGetDataTable = async (
     data: IGetTableRequest,
     isReset: boolean,
+    marketplace?: MarketPlaceType,
   ) => {
     try {
       await handleChangeLoading(true);
@@ -51,15 +55,16 @@ export const useFetchData = () => {
         order_by: data?.order_by || "",
       });
       const response = await projectAxios.get<IGetTableResponse>(
-        `/api/upload/?${queryStr}`,
+        `/api/upload?${queryStr}`,
       );
 
       switch (response.status) {
         case 200:
           if (response.data.result.status == "waiting") {
+            const timeout = marketplace === "yandex" ? 10000 : 30000;
             setTimeout(() => {
               fetchGetDataTable(data, true);
-            }, 30000);
+            }, timeout);
           }
           if (response.data.result.status == "ready") {
             await handleChangePage(data.page);
@@ -79,7 +84,10 @@ export const useFetchData = () => {
           }
       }
     } catch (e) {
-      setError("Ошибка получения информации");
+      if (axios.isAxiosError(e)) {
+        const response = e.response?.data as { result: { error: string } };
+        setError(response.result.error || "Ошибка получения информации");
+      }
     }
   };
 
@@ -102,13 +110,17 @@ export const useFetchData = () => {
       }
 
       const response = await projectAxios.post<IResponsePostFileSucces>(
-        "/api/upload/",
+        "/api/upload",
         formData,
       );
 
       switch (response.status) {
         case 200:
-          fetchGetDataTable({ code: response.data.code, page: 1 }, true);
+          fetchGetDataTable(
+            { code: response.data.code, page: 1 },
+            true,
+            data.marketplace,
+          );
           break;
       }
     } catch (e) {
@@ -119,7 +131,7 @@ export const useFetchData = () => {
   const fetchDownloadFile = async (data: IPostFileRequest) => {
     try {
       const response = await projectAxios.get(
-        `/api/download/?${new URLSearchParams({
+        `/api/download?${new URLSearchParams({
           code: fileCode,
           marketplace: data.marketplace,
           our_stock: data.our_stock,
@@ -130,10 +142,15 @@ export const useFetchData = () => {
           responseType: "blob",
         },
       );
+      const headerFileName = response.headers["content-disposition"] || "";
+      const fileNameBackend = headerFileName
+        ?.split(`filename="`)[1]
+        ?.replace(`"`, "");
+      const fileName = fileNameBackend || "file.xlsx";
       const url = window.URL.createObjectURL(new Blob([response.data]));
       const link = document.createElement("a");
       link.href = url;
-      link.setAttribute("download", "file.pdf"); //or any other extension
+      link.setAttribute("download", fileName);
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
@@ -142,5 +159,10 @@ export const useFetchData = () => {
     }
   };
 
-  return { fetchPostDataFile, fetchGetDataTable, fetchDownloadFile };
+  return {
+    fetchPostDataFile,
+    handleInitialState,
+    fetchGetDataTable,
+    fetchDownloadFile,
+  };
 };
