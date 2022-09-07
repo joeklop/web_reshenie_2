@@ -11,17 +11,20 @@ import { ButtonUI } from "UI/ButtonUI";
 import SaveIcon from "assets/icon/SaveIcon/SaveIcon";
 import { useHeader } from "components/Header/useHeader";
 import HeaderError from "components/Header/HeaderError/HeaderError";
-import { useAppContext } from "../../context/AppContextProvider";
+import { styled } from "@mui/material";
+import HeaderDownloadLoading from "components/Header/HeaderDownloadLoading/HeaderDownloadLoading";
 
 const Header = () => {
-  const { fileCode, isLoading, sort, handleChangeSort } = useAppContext();
-  const { methods, handleSendFile, handleSaveFile, fetchGetDataTable } =
-    useHeader();
-
-  const handleClearSort = () => {
-    handleChangeSort("");
-    fetchGetDataTable({ page: 1, order_by: "", code: fileCode }, true);
-  };
+  const {
+    sort,
+    methods,
+    fileCode,
+    isLoading,
+    isLoadingDownload,
+    handleClearSort,
+    handleSendFile,
+    handleSaveFile,
+  } = useHeader();
 
   return (
     <header>
@@ -29,6 +32,7 @@ const Header = () => {
         <FormProvider {...methods}>
           <div className={styles.header}>
             <nav className={`${styles.innerHeader} ${styles.innerContainer}`}>
+              {isLoading && <HeaderBlockSC />}
               <HeaderMarketplace />
               <HeaderStock />
               <HeaderStockProduct />
@@ -63,10 +67,24 @@ const Header = () => {
           <div className={styles.innerContainer}>
             <HeaderError />
           </div>
+          {isLoadingDownload && (
+            <HeaderDownloadLoading isLoading={isLoadingDownload} />
+          )}
         </FormProvider>
       </form>
     </header>
   );
 };
+
+const HeaderBlockSC = styled("div")`
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  cursor: not-allowed;
+  background-color: rgba(43, 113, 217, 0.4);
+`;
 
 export default React.memo(Header);

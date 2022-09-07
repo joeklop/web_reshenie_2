@@ -19,6 +19,9 @@ const TableContent = () => {
   useEffect(() => {
     handleGetHeight();
     window.addEventListener("resize", handleGetHeight);
+    return () => {
+      window.removeEventListener("resize", handleGetHeight);
+    };
   }, []);
 
   return (

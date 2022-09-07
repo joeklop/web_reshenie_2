@@ -22,6 +22,7 @@ const ContainerSC = styled("div")`
 const TextSC = styled("p")`
   font-weight: 500;
   font-size: 16px;
+  max-height: 36px;
   line-height: 18px;
   color: #aaaaaa;
   margin-right: 10px;

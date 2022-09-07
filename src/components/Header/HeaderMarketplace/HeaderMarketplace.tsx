@@ -28,12 +28,12 @@ const HeaderMarketplace = () => {
       render={({ field: { value, onChange } }) => (
         <ButtonContainerSC>
           <ButtonSC
-            isYandex={"yandex" == value}
+            active={`${"yandex" == value}`}
             onClick={handleChangeMarketPlace(onChange, "yandex")}>
             Яндекс
           </ButtonSC>
           <ButtonSC
-            isYandex={"ozon" == value}
+            active={`${"ozon" == value}`}
             onClick={handleChangeMarketPlace(onChange, "ozon")}>
             OZON
           </ButtonSC>
@@ -49,15 +49,15 @@ const ButtonContainerSC = styled("div")`
   width: 190px;
 `;
 
-const ButtonSC = styled(NavigationButtonUI)<{ isYandex: boolean }>`
-  color: ${({ isYandex }) => (isYandex ? MAIN_COLOR : "inherit")};
+const ButtonSC = styled(NavigationButtonUI)<{ active: "true" | "false" }>`
+  color: ${({ active }) => (active === "true" ? MAIN_COLOR : "inherit")};
 `;
 
 const ButtonNavigationSC = styled("div")<{ marketPlace: MarketPlaceType }>`
   position: absolute;
-  left: ${({ marketPlace }) => (marketPlace == "yandex" ? "0" : "97px")};
+  left: ${({ marketPlace }) => (marketPlace == "yandex" ? "0" : "98px")};
   bottom: 0;
-  width: ${({ marketPlace }) => (marketPlace == "yandex" ? "97px" : "86px")};
+  width: ${({ marketPlace }) => (marketPlace == "yandex" ? "98px" : "87.5px")};
   height: 3px;
   transition: 0.2s all linear;
   background-color: ${MAIN_COLOR};

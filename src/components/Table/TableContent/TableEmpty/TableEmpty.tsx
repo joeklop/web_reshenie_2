@@ -4,7 +4,7 @@ import { styled } from "@mui/material";
 
 const getEmptyTableRow = (): number[] => {
   const arr = [];
-  for (let i = 1; i <= 30; i++) {
+  for (let i = 1; i <= 500; i++) {
     arr.push(i);
   }
   return arr;
