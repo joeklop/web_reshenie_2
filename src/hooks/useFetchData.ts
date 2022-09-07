@@ -128,8 +128,12 @@ export const useFetchData = () => {
     }
   };
 
-  const fetchDownloadFile = async (data: IPostFileRequest) => {
+  const fetchDownloadFile = async (
+    data: IPostFileRequest,
+    callback: (state: boolean) => void,
+  ) => {
     try {
+      await handleChangeLoading(true);
       const response = await projectAxios.get(
         `/api/download?${new URLSearchParams({
           code: fileCode,
@@ -142,6 +146,7 @@ export const useFetchData = () => {
           responseType: "blob",
         },
       );
+
       const headerFileName = response.headers["content-disposition"] || "";
       const fileNameBackend = headerFileName
         ?.split(`filename="`)[1]
@@ -154,7 +159,14 @@ export const useFetchData = () => {
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
+      switch (response.status) {
+        case 200:
+          callback(false);
+          await handleChangeLoading(false);
+          break;
+      }
     } catch (e) {
+      callback(false);
       setError("Ошибка скачивания файла");
     }
   };

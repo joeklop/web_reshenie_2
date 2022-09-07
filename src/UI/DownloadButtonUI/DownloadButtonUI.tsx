@@ -40,7 +40,7 @@ const DownloadButtonUI = ({
   };
 
   const handleRemoveFile = (onChange: (state: undefined) => void) => {
-    return (e: MouseEvent<HTMLButtonElement>) => {
+    return (e: MouseEvent<HTMLAnchorElement>) => {
       e.stopPropagation();
       onChange(undefined);
     };
@@ -54,7 +54,9 @@ const DownloadButtonUI = ({
         <ButtonSC onClick={handleClick} disabled={isDisabled}>
           <TextChildrenUI title={value?.name || title}>
             {value?.name && (
-              <RemoveButtonSC onClick={handleRemoveFile(onChange)}>
+              <RemoveButtonSC
+                type="button"
+                onClick={handleRemoveFile(onChange)}>
                 <RemoveIcon />
               </RemoveButtonSC>
             )}
@@ -86,9 +88,9 @@ const ButtonSC = styled(Button)`
   padding: 11.5px 10px;
 `;
 
-const RemoveButtonSC = styled("button")`
-  margin-right: 10px;
-  padding: 10px 10px;
+const RemoveButtonSC = styled("a")`
+  margin-right: 5px;
+  padding: 5px 10px;
   background-color: transparent;
 `;
 
