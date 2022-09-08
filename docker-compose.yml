@@ -1,0 +1,16 @@
+version: "3.8"
+
+services:
+    front:
+        build: .
+        container_name: front
+        command: npm run start
+        network_mode: "host"
+        volumes:
+            - .:/usr/src/app/
+        expose:
+            - 3000
+
+
+
+
